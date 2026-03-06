@@ -6,7 +6,7 @@
 /*   By: alexis <alexis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 13:41:01 by alexis            #+#    #+#             */
-/*   Updated: 2026/03/05 18:34:27 by alexis           ###   ########.fr       */
+/*   Updated: 2026/03/06 10:52:54 by alexis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
 {
-	std::cout << _name << " created." << std::endl;
+	std::cout << "Bureaucrat : " << _name << " created." << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name)
@@ -49,7 +49,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& copy)
 
 Bureaucrat::~Bureaucrat()
 {
-	std::cout << _name << " deleted." << std::endl;
+	std::cout << "Bureaucrat : " <<_name << " deleted." << std::endl;
 }
 
 /******************************************************************************/

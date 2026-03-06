@@ -11,7 +11,7 @@ class Form
 	public:
 		//Orthodox canonical form
 		Form();
-		Form(const std::string& name, int grade);
+		Form(const std::string& name, const int gradeToSign, const int gradeToExecute);
 		Form(const Form& copy);
 		Form& operator=(const Form& copy);
 		~Form();
@@ -39,7 +39,7 @@ class Form
 	private:
 		const std::string	_name;
 		bool				_signed;
-		const int			_gradeToSigned;
+		const int			_gradeToSign;
 		const int			_gradeToExecute;
 };
 

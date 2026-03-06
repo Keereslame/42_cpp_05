@@ -24,7 +24,7 @@ class Bureaucrat
 		void	decrementGrade();
 
 		//Member function
-		beSigned();
+		void	beSigned();
 
 		//Exception
 		class GradeTooHighException : public std::exception
