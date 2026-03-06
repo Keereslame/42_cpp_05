@@ -1,5 +1,5 @@
-#ifndef FORM_HPP
-# define FORM_HPP
+#ifndef AForm_HPP
+# define AForm_HPP
 
 # include <string>
 # include <iostream>
@@ -7,15 +7,15 @@
 
 class Bureaucrat;
 
-class Form
+class AForm
 {
 	public:
-		//Orthodox canonical form
-		Form();
-		Form(const std::string& name, int gradeToSign, int gradeToExecute);
-		Form(const Form& copy);
-		Form& operator=(const Form& copy);
-		~Form();
+		//Orthodox canonical AForm
+		AForm();
+		AForm(const std::string& name, int gradeToSign, int gradeToExecute);
+		AForm(const AForm& copy);
+		AForm& operator=(const AForm& copy);
+		virtual ~AForm();
 
 		//Getter
 		const std::string&	getName() const;
@@ -25,6 +25,7 @@ class Form
 
 		//Member functions
 		void				beSigned(const Bureaucrat& b);
+		virtual	void		execute(const Bureaucrat& executor) = 0;
 
 		//Exception
 		class GradeTooHighException : public std::exception
@@ -45,6 +46,6 @@ class Form
 		const int			_gradeToExecute;
 };
 
-std::ostream& operator<<(std::ostream& out, const Form& Form);
+std::ostream& operator<<(std::ostream& out, const AForm& AForm);
 
 #endif

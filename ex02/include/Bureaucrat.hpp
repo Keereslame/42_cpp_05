@@ -5,7 +5,7 @@
 # include <iostream>
 # include <exception>
 
-class Form;
+class AForm;
 
 class Bureaucrat
 {
@@ -26,7 +26,7 @@ class Bureaucrat
 		void	decrementGrade();
 
 		//Member function
-		void	signForm(Form& form) const;
+		void	signForm(AForm& form) const;
 
 		//Exception
 		class GradeTooHighException : public std::exception

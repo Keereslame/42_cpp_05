@@ -1,120 +1,116 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
+/*   AForm.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alexis <alexis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 13:41:01 by alexis            #+#    #+#             */
-/*   Updated: 2026/03/06 13:31:07 by alexis           ###   ########.fr       */
+/*   Updated: 2026/03/06 13:31:02 by alexis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <exception>
 #include <string>
+#include "../include/AForm.hpp"
 #include "../include/Bureaucrat.hpp"
-#include "../include/Form.hpp"
 
 /******************************************************************************/
-/*                          Orthodox canonical form                           */
+/*                          Orthodox canonical AForm                           */
 /******************************************************************************/
 
-Bureaucrat::Bureaucrat() : _name("Default"), _grade(150)
+AForm::AForm() : _name("Base"), _signed(false), _gradeToSign(150), _gradeToExecute(150)
 {
 }
 
-Bureaucrat::Bureaucrat(const std::string& name, int grade) : _name(name)
+AForm::AForm(const std::string& name, int gradeToSign, int gradeToExecute) :
+	_name(name), _signed(false),_gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
-	if (grade < 1)
-		throw Bureaucrat::GradeTooHighException();
-	else if (grade > 150)
-		throw Bureaucrat::GradeTooLowException();
-	else
-		_grade = grade;
+	if (gradeToSign > 150 || gradeToExecute > 150)
+		throw (AForm::GradeTooLowException());
+	else if (gradeToSign < 1 || gradeToExecute < 1)
+		throw (AForm::GradeTooHighException());
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& copy) : _name(copy._name), _grade(copy._grade)
+AForm::AForm(const AForm& copy) : _name(copy._name),  _signed(false),
+	_gradeToSign(copy._gradeToSign), _gradeToExecute(copy._gradeToExecute)
 {
 }
 
-Bureaucrat& Bureaucrat::operator=(const Bureaucrat& copy)
+AForm& AForm::operator=(const AForm& copy)
 {
 	if (this != &copy)
-		_grade = copy._grade;
+		_signed = copy._signed;
 	return (*this);
 }
 
-Bureaucrat::~Bureaucrat()
+AForm::~AForm()
 {
-	std::cout << "Bureaucrat : " <<_name << " deleted." << std::endl;
+	std::cout << "AForm : " << _name << " deleted." << std::endl;
 }
 
 /******************************************************************************/
 /*                                  Getter                                    */
 /******************************************************************************/
 
-const std::string&	Bureaucrat::getName() const
+const std::string&	AForm::getName() const
 {
 	return (_name);
 }
 
-int	Bureaucrat::getGrade() const
+bool AForm::getSigned() const
 {
-	return (_grade);
+	return (_signed);
 }
 
-/******************************************************************************/
-/*                                  Setter                                    */
-/******************************************************************************/
-
-void Bureaucrat::incrementGrade()
+int	AForm::getGradeToSign() const
 {
-	if (_grade == 1)
-		throw Bureaucrat::GradeTooHighException();
-	else
-		_grade--;
+	return (_gradeToSign);
 }
 
-void Bureaucrat::decrementGrade()
+int	AForm::getGradeToExecute() const
 {
-	if (_grade == 150)
-		throw Bureaucrat::GradeTooLowException();
-	else
-		_grade++;
+	return (_gradeToExecute);
 }
 
 /******************************************************************************/
 /*                            Member function                                 */
 /******************************************************************************/
 
-void Bureaucrat::signForm(Form& form) const
+void	AForm::beSigned(const Bureaucrat& b)
 {
-	form.beSigned(*this);
-	if (form.getSigned())
-		std::cout << _name << " signed " << form.getName() << std::endl;
+	if (b.getGrade() > _gradeToSign)
+		throw (AForm::GradeTooLowException());
+	_signed = true;
 }
 
 /******************************************************************************/
 /*                               Exception                                    */
 /******************************************************************************/
 
-const char* Bureaucrat::GradeTooHighException::what() const throw()
+const char* AForm::GradeTooHighException::what() const throw()
 {
-	return ("Grade too high!");
+	return ("Grade too high to sign or execute the AForm!");
 }
 
-const char* Bureaucrat::GradeTooLowException::what() const throw()
+const char* AForm::GradeTooLowException::what() const throw()
 {
-	return ("Grade too low!");
+	return ("Grade too low to sign or execute the AForm!");
 }
 
 /******************************************************************************/
 /*                            Override function                               */
 /******************************************************************************/
 
-std::ostream& operator<<(std::ostream& out, const Bureaucrat& bureaucrat)
+std::ostream& operator<<(std::ostream& out, const AForm& AForm)
 {
-	out << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << "." << std::endl;
+	out << "AForm : " << AForm.getName() << " is";
+	if (AForm.getSigned())
+		out << " signed";
+	else
+		out << " not signed";
+	out << ", he can be sign by the grade : " << AForm.getGradeToSign();
+	out << " and can be execute by the grade : " << AForm.getGradeToExecute() << std::endl;
 	return (out);
 }
