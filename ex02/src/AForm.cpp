@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AForm.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alexis <alexis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 13:41:01 by alexis            #+#    #+#             */
-/*   Updated: 2026/03/06 13:31:02 by alexis           ###   ########.fr       */
+/*   Updated: 2026/03/18 12:08:43 by alexis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,14 @@ AForm::AForm() : _name("Base"), _signed(false), _gradeToSign(150), _gradeToExecu
 AForm::AForm(const std::string& name, int gradeToSign, int gradeToExecute) :
 	_name(name), _signed(false),_gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
-	if (gradeToSign > 150 || gradeToExecute > 150)
-		throw (AForm::GradeTooLowException());
-	else if (gradeToSign < 1 || gradeToExecute < 1)
-		throw (AForm::GradeTooHighException());
+	if (gradeToSign > 150)
+		throw (AForm::GradeTooLowToSign());
+	else if (gradeToExecute > 150)
+		throw (AForm::GradeTooLowToExecute());
+	else if (gradeToSign < 1)
+		throw (AForm::GradeTooHighToSign());
+	else if (gradeToExecute < 1)
+		throw (AForm::GradeTooHighToExecute());
 }
 
 AForm::AForm(const AForm& copy) : _name(copy._name),  _signed(false),
@@ -81,22 +85,45 @@ int	AForm::getGradeToExecute() const
 void	AForm::beSigned(const Bureaucrat& b)
 {
 	if (b.getGrade() > _gradeToSign)
-		throw (AForm::GradeTooLowException());
+		throw (AForm::GradeTooLowToSign());
 	_signed = true;
+}
+
+void	AForm::checkExecute(const Bureaucrat& b)
+{
+	if (!this->getSigned())
+		throw (AForm::FormNotSignedException());
+	if (b.getGrade() > this->getGradeToExecute())
+		throw (AForm::GradeTooLowToExecute());
 }
 
 /******************************************************************************/
 /*                               Exception                                    */
 /******************************************************************************/
 
-const char* AForm::GradeTooHighException::what() const throw()
+const char* AForm::GradeTooHighToSign::what() const throw()
 {
-	return ("Grade too high to sign or execute the Form!");
+	return ("Grade too high to sign the Form!");
 }
 
-const char* AForm::GradeTooLowException::what() const throw()
+const char* AForm::GradeTooLowToSign::what() const throw()
 {
-	return ("Grade too low to sign or execute the Form!");
+	return ("Grade too low to sign the Form!");
+}
+
+const char* AForm::GradeTooHighToExecute::what() const throw()
+{
+	return ("Grade too high to execute the Form!");
+}
+
+const char* AForm::GradeTooLowToExecute::what() const throw()
+{
+	return ("Grade too low to execute the Form!");
+}
+
+const char* AForm::FormNotSignedException::what() const throw()
+{
+	return ("The Form is not signed. Please sign it before execute!");
 }
 
 /******************************************************************************/

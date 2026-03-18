@@ -25,15 +25,31 @@ class AForm
 
 		//Member functions
 		void				beSigned(const Bureaucrat& b);
+		void				checkExecute(const Bureaucrat& executor);
 		virtual	void		execute(const Bureaucrat& executor) = 0;
 
 		//Exception
-		class GradeTooHighException : public std::exception
+		class GradeTooHighToSign : public std::exception
 		{
 			public:
 				virtual const char* what() const throw();
 		};
-		class GradeTooLowException : public std::exception
+		class GradeTooLowToSign : public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
+		class GradeTooHighToExecute : public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
+		class GradeTooLowToExecute : public std::exception
+		{
+			public:
+				virtual const char* what() const throw();
+		};
+		class FormNotSignedException : public std::exception
 		{
 			public:
 				virtual const char* what() const throw();

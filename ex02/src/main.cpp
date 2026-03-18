@@ -6,17 +6,20 @@
 /*   By: alexis <alexis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:54:07 by alexis            #+#    #+#             */
-/*   Updated: 2026/03/06 13:26:46 by alexis           ###   ########.fr       */
+/*   Updated: 2026/03/18 12:38:41 by alexis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <exception>
+#include <cstdlib>
+#include <ctime>
 #include "../include/Bureaucrat.hpp"
 #include "../include/Form.hpp"
 
 int main(void)
 {
+	srand(time(NULL)); //to initialize the seed
 	std::cout << "\033[33m" << std::endl << "Test ex01" << "\033[0m" << std::endl;
 
 	{
