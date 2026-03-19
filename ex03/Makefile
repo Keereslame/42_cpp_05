@@ -22,6 +22,7 @@ SRC = \
 	src/PresidentialPardonForm.cpp \
 	src/RobotomyRequestForm.cpp \
 	src/ShrubberyCreationForm.cpp \
+	src/Intern.cpp \
 
 OBJ = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
