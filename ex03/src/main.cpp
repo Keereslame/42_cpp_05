@@ -6,7 +6,7 @@
 /*   By: alexis <alexis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:54:07 by alexis            #+#    #+#             */
-/*   Updated: 2026/03/19 11:06:37 by alexis           ###   ########.fr       */
+/*   Updated: 2026/03/19 11:18:11 by alexis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,25 @@ int main(void)
 		std::cout << "\033[33m" << std::endl << "Test create Shrubbery Creation Form by an intern" << "\033[0m" << std::endl;
 		Intern	intern;
 		AForm*	form;
-		form = intern.makeForm("shrubbery creation", "home");
-		if (form)
+
+		try
 		{
-			std::cout << *form << std::endl;
-	
-			Bureaucrat chief("Chief", 1);
-			chief.signForm(*form);
-			chief.executeForm(*form);
-			delete form;
+			form = intern.makeForm("shrubbery creation", "home");
+			if (form)
+			{
+				std::cout << *form << std::endl;
+		
+				Bureaucrat chief("Chief", 1);
+				chief.signForm(*form);
+				chief.executeForm(*form);
+				delete form;
+			}
 		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+
 		std::cout << "\033[34m" << "End case shrubbery creation form" << "\033[0m" << std::endl;
 	}
 
@@ -47,16 +56,25 @@ int main(void)
 		std::cout << "\033[33m" << std::endl << "Test create robotomy request Form by an intern" << "\033[0m" << std::endl;
 		Intern	intern;
 		AForm*	form;
-		form = intern.makeForm("robotomy request", "home");
-		if (form)
-		{
-			std::cout << *form << std::endl;
 
-			Bureaucrat chief("Chief", 1);
-			chief.signForm(*form);
-			chief.executeForm(*form);
-			delete form;
+		try
+		{
+			form = intern.makeForm("robotomy request", "home");
+			if (form)
+			{
+				std::cout << *form << std::endl;
+
+				Bureaucrat chief("Chief", 1);
+				chief.signForm(*form);
+				chief.executeForm(*form);
+				delete form;
+			}
 		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+
 		std::cout << "\033[34m" << "End case robotomy request form" << "\033[0m" << std::endl;
 	}
 
@@ -64,16 +82,25 @@ int main(void)
 		std::cout << "\033[33m" << std::endl << "Test create presidential pardon Form by an intern" << "\033[0m" << std::endl;
 		Intern	intern;
 		AForm*	form;
-		form = intern.makeForm("presidential pardon", "home");
-		if (form)
-		{
-			std::cout << *form << std::endl;
 
-			Bureaucrat chief("Chief", 1);
-			chief.signForm(*form);
-			chief.executeForm(*form);
-			delete form;
+		try
+		{
+			form = intern.makeForm("presidential pardon", "home");
+			if (form)
+			{
+				std::cout << *form << std::endl;
+
+				Bureaucrat chief("Chief", 1);
+				chief.signForm(*form);
+				chief.executeForm(*form);
+				delete form;
+			}
 		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+		
 		std::cout << "\033[34m" << "End case presidential pardon form" << "\033[0m" << std::endl;
 	}
 
@@ -81,17 +108,26 @@ int main(void)
 		std::cout << "\033[33m" << std::endl << "Test create unknown Form by an intern" << "\033[0m" << std::endl;
 		Intern	intern;
 		AForm*	form;
-		form = intern.makeForm("unknown", "home");
-		if (form)
-		{
-			std::cout << *form << std::endl;
 
-			Bureaucrat chief("Chief", 1);
-			chief.signForm(*form);
-			chief.executeForm(*form);
-			delete form;
+		try
+		{
+			form = intern.makeForm("unknown", "home");
+			if (form)
+			{
+				std::cout << *form << std::endl;
+
+				Bureaucrat chief("Chief", 1);
+				chief.signForm(*form);
+				chief.executeForm(*form);
+				delete form;
+			}
 		}
-		std::cout << "\033[34m" << "End case presidential pardon form" << "\033[0m" << std::endl;
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+		
+		std::cout << "\033[34m" << "End case unknown form" << "\033[0m" << std::endl;
 	}
 	return (0);
 }
